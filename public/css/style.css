@@ -12,6 +12,11 @@
   --weight-700: 700;
 }
 
+html {
+  font-family: "Josefin Sans", sans-serif;
+  color: #494c6b;
+}
+
 body {
   font-size: 18px;
   font-family: sans-serif;
@@ -19,9 +24,9 @@ body {
 }
 
 .app-container {
-  background: url("/public/img/bg-desktop-dark.jpg") no-repeat;
+  background: url("/public/img/bg-desktop-light.jpg") no-repeat;
   min-height: 100vh;
-  background-color: #171823;
+  background-color: #fafafa;
   background-size: contain;
   display: flex;
   justify-content: center;
@@ -48,40 +53,40 @@ body {
 
 .input-header {
   display: flex;
-  padding: 15px 20px;
-  background: #25273d;
-  border: #25273d;
-  width: 35%;
+  padding: 10px 10px;
+  background: white;
+  border: white;
+  width: 40%;
   border-radius: 8px;
   align-items: center;
   gap: 24px;
 }
 
 .checkbox {
-  width: 30px;
-  height: 30px;
+  width: 21px;
+  height: 21px;
   /* background: red; */
   align-self: center;
   border-radius: 50%;
-  border-color: #484b6a;
-  border: 2px solid #484b6a;
+  border-color: #e3e4f1;
+  border: 2px solid #e3e4f1;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
 .completed-checkbox {
-  background: #7cb1e3;
+  background: linear-gradient(to right, #55ddff, #c058f3);
 }
 
 .input-header input {
-  color: var(--gray-300);
+  color: #494c6b;
   background: transparent;
   border: unset;
   line-height: 30px;
   font-size: 18px;
   caret-color: var(--blue-500);
-  font-weight: var(--weight-700);
+  font-weight: var(--weight-400);
   flex: 1;
 }
 
@@ -94,6 +99,8 @@ input:focus {
   width: 100%;
   display: flex;
   justify-content: center;
+  flex-direction: column;
+  align-items: center;
 }
 
 .list-container ul {
@@ -102,27 +109,46 @@ input:focus {
   padding: unset;
   color: var(--gray-300);
   list-style-type: none;
+  border-radius: 8px 8px 0px 0px;
+  overflow: auto;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  max-height: min(50vh);
 }
 
 .li-container {
   display: flex;
   padding: 15px 20px;
-  background: #25273d;
-  border: #25273d;
+  background: white;
+  border: white;
   align-items: center;
   flex-wrap: wrap;
 }
+/* 
+border: 1px solid #C058F3;
+    background: linear-gradient(to right, #55DDFF, #C058F3); */
+
+.li-todo-checked {
+  color: #d1d2da !important;
+  text-decoration: line-through;
+}
+
+.li-todo-unchecked {
+  color: #494c6b;
+  text-decoration: unset;
+}
 
 .li-todo {
-  border-bottom: 2px solid var(--navy-850);
+  border-bottom: 1px solid #e3e4f1;
   gap: 24px;
   justify-content: space-around;
 }
 
 .li-tab {
   justify-content: space-between;
+  width: 40%;
   color: var(--gray-600);
   font-weight: 700;
+  border-top: 1px solid #e3e4f1;
 }
 
 .active-tab {
@@ -130,14 +156,16 @@ input:focus {
 }
 
 .li-container img {
-  width: 18px;
-  height: 18px;
+  width: 14px;
+  height: 14px;
+  display: none;
 }
 
 li .todo-text {
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 400;
   flex: 1;
+  color: #494c6b;
 }
 
 .delete-text {
@@ -159,9 +187,42 @@ li .doto-status {
   align-items: center;
 }
 
-.tab {
+.todo-filter {
   display: flex;
-  gap: 10px
+  /* gap: 10px; */
+}
+
+.todo-filter input {
+  display: none;
+}
+
+.todo-filter label {
+  color: #9495a5;
+  font-size: 14px;
+  font-weight: bold;
+  padding: 6px 6px;
+}
+
+.todo-filter label:hover,
+.li-tab button:hover {
+  color: #494c6b;
+}
+
+.todo-filter input[type="radio"]:checked + label {
+  color: var(--blue-500);
+}
+
+.li-tab button {
+  font-size: 14px;
+  font-weight: 500;
+  color: #9495a5;
+  border: unset;
+  background: white;
+}
+
+.li-tab span {
+  font-size: 14px;
+  font-weight: 400;
 }
 
 @media (max-width: 1024px) {
@@ -176,7 +237,7 @@ li .doto-status {
 
 @media (max-width: 540px) {
   .app-container {
-    background: url("/public/img/bg-mobile-dark.jpg") no-repeat;
+    background: url("/public/img/bg-mobile-light.jpg") no-repeat;
     background-color: #171823;
     background-size: contain;
     padding: 30px 20px;
@@ -204,7 +265,7 @@ li .doto-status {
   }
 
   .li-container {
-    gap: 10px;
+    gap: 0px;
   }
 
   li .todo-text {
@@ -217,6 +278,10 @@ li .doto-status {
   }
 
   .list-container ul {
+    width: 100%;
+  }
+
+  .li-tab {
     width: 100%;
   }
 }

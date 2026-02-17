@@ -2,7 +2,6 @@ const express = require("express");
 const router = express.Router();
 const sqlite3 = require("sqlite3");
 const db = new sqlite3.Database("./database.sqlite");
-const { getAllTodos, getTodoById, deleteTodoById } = require("../model/todo");
 
 //Retrieve all to-do items.
 router.get("/", async (req, res, next) => {

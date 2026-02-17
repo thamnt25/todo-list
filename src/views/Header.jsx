@@ -1,18 +1,61 @@
-import iconCheck from "../../public/img/icon-check.svg";
+import axios from "axios";
+import todo from "../../model/todo.js";
 
-const Header = () => {
+const Header = ({ setTodoList }) => {
+  async function createNewTodo(formData) {
+    const query = formData.get("ftask");
+    if (query) {
+      const body = todo(query);
+      console.log(body);
+      try {
+        const response = await axios.post(
+          "http://localhost:3000/api/todos/",
+          { todo: body },
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          },
+        );
+        console.log(response);
+        if (response.status === 201) {
+          setTodoList((prev) => [...prev, response.data.todo]);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+      console.log("Empty");
+      //setCheckbox(false);
+    }
+  }
   return (
     <div className="w-100 header">
       <h1 className="title">TO DO</h1>
-      <div className="input-header">
-        <div className="checkbox"></div>
+      <form className="input-header" action={createNewTodo}>
         <input
           type="text"
-          id="fname"
-          name="fname"
+          id="ftask"
+          name="ftask"
           placeholder="Creat a new todo..."
         />
-      </div>
+        <button className="btn btn-outline-primary" type="submit">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="currentColor"
+            className="bi bi-plus-lg"
+            viewBox="0 0 16 16"
+          >
+            <path
+              fillRule="evenodd"
+              d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2"
+            />
+          </svg>
+          Add
+        </button>
+      </form>
     </div>
   );
 };
