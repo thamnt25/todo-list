@@ -3,10 +3,15 @@ import delete_icon from "../../public/img/icon-cross.svg";
 import check_icon from "../../public/img/icon-check.svg";
 import { updateTodo, deleteTodo } from "../api/FetchData";
 
-export default function TodoListItem({ todo, editTodoItem, deleteTodoItem }) {
+export default function TodoListItem({ todo, onChange, onDelete }) {
+  //isHovering is checking mouse hover to this li item or not
   const [isHovering, setLiHover] = useState(false);
+
+  //isChecked for checking completed or uncompleted task
   const [isChecked, setCheckbox] = useState(todo.status);
 
+
+  //Toggle the task status between Active and Completed 
   async function updateItem() {
     const updatedStatus = todo.status ? 0 : 1;
     const updatedTodo = { ...todo, status: updatedStatus };
@@ -14,7 +19,7 @@ export default function TodoListItem({ todo, editTodoItem, deleteTodoItem }) {
     try {
       const res = await updateTodo(todo.id, updatedTodo);
       if (res.status === 200) {
-        editTodoItem(todo.id, updatedTodo);
+        onChange(todo.id, updatedTodo);
       }
     } catch (err) {
       console.log(err);
@@ -26,7 +31,7 @@ export default function TodoListItem({ todo, editTodoItem, deleteTodoItem }) {
     try {
       const res = await deleteTodo(todo.id);
       if (res.status === 204) {
-        deleteTodoItem(todo.id);
+        onDelete(todo.id);
       }
     } catch (err) {
       console.log(err);

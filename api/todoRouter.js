@@ -4,7 +4,7 @@ const sqlite3 = require("sqlite3");
 const db = new sqlite3.Database("./database.sqlite");
 
 //Retrieve all to-do items.
-router.get("/", async (req, res, next) => {
+router.get("/", (req, res, next) => {
   const sql = "SELECT * FROM Todo";
   db.all(sql, (err, todos) => {
     if (err) {
@@ -15,6 +15,7 @@ router.get("/", async (req, res, next) => {
   });
 });
 
+//upcomming feature
 router.get("/:id", (req, res, next) => {
   const id = req.params.id;
   const sql = "SELECT * FROM Todo WHERE id = $id";
@@ -25,7 +26,7 @@ router.get("/:id", (req, res, next) => {
     } else if (todoItem) {
       res.status(200).json({ todo: todoItem });
     } else {
-      res.status(404);
+      res.status(404).json({ error: "Todo not found" });
     }
   });
 });
@@ -33,12 +34,15 @@ router.get("/:id", (req, res, next) => {
 //Add new to-do item
 router.post("/", (req, res, next) => {
   const newtodo = req.body.todo;
+  if (!newtodo) {
+    res.status(400).json({ error: "task is required" });
+  }
   const task = newtodo.task,
     description = newtodo.description,
     duedate = newtodo.duedate,
     status = newtodo.status;
   if (!task) {
-    res.status(400);
+    res.status(400).json({ error: "task is required" });
   }
   const sql =
     "INSERT INTO Todo (task, description, duedate, status)" +

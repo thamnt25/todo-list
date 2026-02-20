@@ -2,7 +2,9 @@ import TodoListItem from "./TodoListItem";
 import { useState } from "react";
 import { updateTodo, deleteTodo } from "../api/FetchData";
 
-const MainContainer = ({ todoList, editTodoItem, deleteTodoItem }) => {
+const MainContainer = ({ todoList, onChange, onDelete }) => {
+
+  //filter state for filtering todoList by active(status = 0), completed (status = 1)
   const [filter, setfilter] = useState("all");
   const fillterList = todoList.filter((item) => {
     if (filter === "active") return item.status === 0;
@@ -10,13 +12,14 @@ const MainContainer = ({ todoList, editTodoItem, deleteTodoItem }) => {
     return true;
   });
 
+  //delete all completed todos in database and update todolist react state
   async function clearAllComplete() {
     const completedTodos = todoList.filter((item) => item.status === 1);
     try {
       for (const item of completedTodos) {
         const res = await deleteTodo(item.id);
         if (res.status === 204) {
-          deleteTodoItem(item.id);
+          onDelete(item.id);
         }
       }
     } catch (err) {
@@ -27,12 +30,13 @@ const MainContainer = ({ todoList, editTodoItem, deleteTodoItem }) => {
   return (
     <div className="list-container">
       <ul>
+        {/* render todo item by filtering condition */}
         {fillterList.map((item) => (
           <TodoListItem
             key={item.id}
             todo={item}
-            editTodoItem={editTodoItem}
-            deleteTodoItem={deleteTodoItem}
+            onChange={onChange}
+            onDelete={onDelete}
           />
         ))}
       </ul>

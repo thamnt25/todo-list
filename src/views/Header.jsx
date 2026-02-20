@@ -2,31 +2,27 @@ import axios from "axios";
 import todo from "../../model/todo.js";
 
 const Header = ({ setTodoList }) => {
+
+  //Insert new todo item in database and push new todo object in todolist by setting state
   async function createNewTodo(formData) {
-    const query = formData.get("ftask");
-    if (query) {
-      const body = todo(query);
-      console.log(body);
-      try {
-        const response = await axios.post(
-          "http://localhost:3000/api/todos/",
-          { todo: body },
-          {
-            headers: {
-              "Content-Type": "application/json",
-            },
+    const query = formData.get("ftask")?.toString().trim();
+    const body = todo(query);
+    try {
+      const response = await axios.post(
+        "http://localhost:3000/api/todos/",
+        { todo: body },
+        {
+          headers: {
+            "Content-Type": "application/json",
           },
-        );
-        console.log(response);
-        if (response.status === 201) {
-          setTodoList((prev) => [...prev, response.data.todo]);
-        }
-      } catch (error) {
-        console.log(error);
+        },
+      );
+      //Checking if insert successfull in database then update todolist state
+      if (response.status === 201) {
+        setTodoList((prev) => [...prev, response.data.todo]);
       }
-    } else {
-      console.log("Empty");
-      //setCheckbox(false);
+    } catch (error) {
+      console.log(error);
     }
   }
   return (

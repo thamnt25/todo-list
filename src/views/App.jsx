@@ -7,16 +7,19 @@ import { getAllTodo } from "../api/FetchData";
 function App() {
   const [todoList, setTodoList] = useState([]);
 
+  //Update todoList state when a todo item is updated
   function editTodoItem(id, updatedTodo) {
     setTodoList((prev) =>
       prev.map((item) => (item.id === id ? updatedTodo : item)),
     );
   }
 
+   //Reset todoList state by filltering the item is deleted in database
   function deleteTodoItem(id) {
     setTodoList((prev) => prev.filter((item) => item.id !== id));
   }
 
+  //Fetching data from Sqlite and set data into todoList react state
   useEffect(() => {
     const fetchTodos = async () => {
       const res = await getAllTodo();
@@ -32,8 +35,8 @@ function App() {
       <Header setTodoList={setTodoList} />
       <MainContainer
         todoList={todoList}
-        editTodoItem={editTodoItem}
-        deleteTodoItem={deleteTodoItem}
+        onChange={editTodoItem}
+        onDelete={deleteTodoItem}
       />
     </div>
   );

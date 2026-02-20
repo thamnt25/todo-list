@@ -28,11 +28,6 @@ body {
   min-height: 100vh;
   background-color: #fafafa;
   background-size: contain;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  gap: 32px;
 }
 
 .header {
@@ -42,6 +37,8 @@ body {
   flex-direction: column;
   align-items: center;
   gap: 32px;
+  position: relative;
+  top: 60px;
 }
 
 .header .title {
@@ -101,6 +98,8 @@ input:focus {
   justify-content: center;
   flex-direction: column;
   align-items: center;
+  top: 100px;
+  position: relative;
 }
 
 .list-container ul {
@@ -149,6 +148,7 @@ border: 1px solid #C058F3;
   color: var(--gray-600);
   font-weight: 700;
   border-top: 1px solid #e3e4f1;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
 }
 
 .active-tab {
@@ -233,6 +233,22 @@ li .doto-status {
   .main-content {
     margin-top: 2.5rem;
   }
+
+  .input-header {
+    width: 60%;
+  }
+
+  .list-container {
+    top: 60px;
+  }
+
+  .list-container ul {
+    width: 60%;
+  }
+
+  .li-tab {
+    width: 60%;
+  }
 }
 
 @media (max-width: 540px) {
@@ -245,6 +261,7 @@ li .doto-status {
 
   .header {
     text-align: center;
+    top: 30px;
   }
 
   .checkbox {
@@ -265,7 +282,7 @@ li .doto-status {
   }
 
   .li-container {
-    gap: 0px;
+    gap: 10px;
   }
 
   li .todo-text {
