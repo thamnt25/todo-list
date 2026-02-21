@@ -24,7 +24,7 @@ body {
 }
 
 .app-container {
-  background: url("/public/img/bg-desktop-light.jpg") no-repeat;
+  background: url("/img/bg-desktop-light.jpg") no-repeat;
   min-height: 100vh;
   background-color: #fafafa;
   background-size: contain;
@@ -256,7 +256,7 @@ li .doto-status {
 
 @media (max-width: 540px) {
   .app-container {
-    background: url("/public/img/bg-mobile-light.jpg") no-repeat;
+    background: url("/img/bg-mobile-light.jpg") no-repeat;
     background-color: #171823;
     background-size: contain;
     padding: 30px 20px;
