@@ -2,8 +2,18 @@ const express = require("express");
 const router = express.Router();
 const sqlite3 = require("sqlite3");
 const path = require("path");
+const fs = require("fs");
 
-const db = new sqlite3.Database(path.join(__dirname, "database.sqlite"));
+const bundledDbPath = path.join(__dirname, "database.sqlite");
+const runtimeDbPath = process.env.VERCEL
+  ? path.join("/tmp", "database.sqlite")
+  : bundledDbPath;
+
+if (process.env.VERCEL && !fs.existsSync(runtimeDbPath)) {
+  fs.copyFileSync(bundledDbPath, runtimeDbPath);
+}
+
+const db = new sqlite3.Database(runtimeDbPath);
 
 //Retrieve all to-do items.
 router.get("/", (req, res, next) => {
