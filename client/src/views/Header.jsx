@@ -1,15 +1,17 @@
 import axios from "axios";
 import todo from "../../model/todo.js";
 
-const Header = ({ setTodoList }) => {
+const API_BASE = import.meta.env.VITE_API_BASE_URL || "";
+const TODO_API = `${API_BASE}/api/todos`;
 
+const Header = ({ setTodoList }) => {
   //Insert new todo item in database and push new todo object in todolist by setting state
   async function createNewTodo(formData) {
     const query = formData.get("ftask")?.toString().trim();
     const body = todo(query);
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/todos/",
+        `${TODO_API}/`,
         { todo: body },
         {
           headers: {

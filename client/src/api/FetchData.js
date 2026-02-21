@@ -1,8 +1,11 @@
 import axios from "axios";
 
+const API_BASE = import.meta.env.VITE_API_BASE_URL || "";
+const TODO_API = `${API_BASE}/api/todos`;
+
 async function getAllTodo() {
   try {
-    const res = await axios.get("http://localhost:3000/api/todos/");
+    const res = await axios.get(`${TODO_API}/`);
     return res;
   } catch (err) {
     console.error("Failed to get todos:", err);
@@ -12,7 +15,7 @@ async function getAllTodo() {
 
 async function updateTodo(id, todo) {
   try {
-    const res = await axios.put(`http://localhost:3000/api/todos/${id}`, {
+    const res = await axios.put(`${TODO_API}/${id}`, {
       todo: todo,
     });
     return res;
@@ -24,7 +27,7 @@ async function updateTodo(id, todo) {
 
 async function deleteTodo(id) {
   try {
-    const res = await axios.delete(`http://localhost:3000/api/todos/${id}`);
+    const res = await axios.delete(`${TODO_API}/${id}`);
     return res;
   } catch (err) {
     console.error("Failed to delete todo:", err);

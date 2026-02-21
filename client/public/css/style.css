@@ -237,6 +237,9 @@ li .doto-status {
   .input-header {
     width: 60%;
   }
+  .header {
+    top: 30px;
+  }
 
   .list-container {
     top: 60px;
